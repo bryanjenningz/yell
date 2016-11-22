@@ -3,16 +3,25 @@ import {connect} from 'react-redux'
 import {getCount, getCountError} from '../reducers'
 import * as actions from '../actions'
 
-let App = ({count, error, increment, decrement, incrementError}) =>
+const ErrorMessage = ({error, increment}) =>
+  <span>
+    {error ? 
+      <h3>
+        {error}
+        <button className="btn btn-default" onClick={increment}>
+          <i className="glyphicon glyphicon-refresh" />
+        </button>
+      </h3> :
+      null}
+  </span>
+
+let App = ({count, error, increment, decrement}) =>
   <div className="text-center">
     <h2>{count}</h2>
-    {error ? <h3>{error}<button className="btn btn-default" onClick={increment}><i className="glyphicon glyphicon-refresh" /></button></h3> : null}
+    <ErrorMessage increment={increment} error={error} />
     <div className="btn-group">
       <button className="btn btn-default" onClick={decrement}>-</button>
       <button className="btn btn-default" onClick={increment}>+</button>
-    </div>
-    <div>
-      <button className="btn btn-default" onClick={incrementError}>DO NOT PRESS</button>
     </div>
   </div>
 
@@ -21,7 +30,7 @@ App = connect(
     count: getCount(state),
     error: getCountError(state),
   }),
-  {...actions}
+  actions
 )(App)
 
 export default App
