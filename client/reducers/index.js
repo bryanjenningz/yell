@@ -29,3 +29,4 @@ const update = combineReducers({counter})
 export default update
 
 export const getCount = (state) => state.counter.count
+export const getCountError = (state) => state.counter.errorMessage
