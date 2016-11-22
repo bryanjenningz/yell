@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {getCount} from '../reducers'
 import * as actions from '../actions'
 
 let App = ({count, increment, decrement}) =>
@@ -11,6 +12,6 @@ let App = ({count, increment, decrement}) =>
     </div>
   </div>
 
-App = connect(count => ({count}), {...actions})(App)
+App = connect(state => ({count: getCount(state)}), {...actions})(App)
 
 export default App
